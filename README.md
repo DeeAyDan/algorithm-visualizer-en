@@ -1,16 +1,16 @@
 # Algorithm Visualizer
 
-## Bevezetés
-Az Algoritmus Vizualizátor egy interaktív webes alkalmazás, amely látványos módon szemlélteti különféle algoritmusok működését. A platform célja, hogy közérthető és vizuálisan követhető formában segítse az algoritmusok tanulását és megértését – legyen szó oktatásról, gyakorlásról vagy szakmai elmélyülésről.
+## Introduction
+Algorithm Visualizer is an interactive web application that visually demonstrates the behavior of various algorithms. The goal of the platform is to support learning and understanding algorithms in a clear and visually traceable way—whether for education, practice, or deeper professional exploration.
 
-## Használt nyelvek és keretrendszerek
+## Languages and Frameworks Used
 [![Languages](https://skillicons.dev/icons?i=html,css,js,ts,svelte)](https://skillicons.dev)
 
-## Algoritmusok vizualizálása:
-Az Algoritmus Vizualizátor lehetővé teszi az algoritmusok működésének valós idejű megfigyelését, JavaScript-ben írt kód vizuális megjelenítésén keresztül. Ez a megközelítés hatékonyan segíti az algoritmikus gondolkodás és működésmód mélyebb megértését.
+## Algorithm Visualization
+Algorithm Visualizer allows users to observe how algorithms operate in real time through the visual representation of JavaScript-based code execution. This approach effectively supports a deeper understanding of algorithmic thinking and execution flow.
 
-## Algoritmusok:
-Az alkalmazás azokat az algoritmusokat tartalmazza, amelyeket a Szegedi Tudományegyetemen oktatott Algoritmusok és adatszerkezetek I és Algoritmusok és adatszerkezetek II kurzusok keretében ismertetnek. A vizualizáció célja az elméleti ismeretek szemléltetése és a gyakorlati megértés támogatása.
+## Algorithms
+The application visualizes a wide range of classical algorithms and data structures commonly used in computer science.
 
 ## Github:
 https://github.com/DeeAyDan/algorithm-visualizer
