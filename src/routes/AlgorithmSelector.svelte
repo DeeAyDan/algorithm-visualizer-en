@@ -166,8 +166,4 @@
 	.algorithm-list.visible {
 		display: block;
 	}
-
-	.todo {
-		color: red;
-	}
 </style>
