@@ -116,12 +116,12 @@
 		currentStep.set(0);
 		hullEdges = [];
 		selectedEdges = [];
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		await jarvisMarch(points);
 		activeLine.set({ start: -1, end: -1 });
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		await restartAlgorithm();
 	}
@@ -141,7 +141,7 @@
 			for (let r of points) {
 				highlightedEdge = [p, r];
 				log(
-					`Vizsgálat: (${p.x.toFixed(2)}, ${p.y.toFixed(2)}) → (${r.x.toFixed(2)}, ${r.y.toFixed(2)})`
+					`Checking: (${p.x.toFixed(2)}, ${p.y.toFixed(2)}) → (${r.x.toFixed(2)}, ${r.y.toFixed(2)})`
 				);
 				activeLine.set({ start: 13, end: 13 });
 				await delay(900 - get(speed) * 8);
@@ -164,7 +164,7 @@
 			activeLine.set({ start: 19, end: 21 });
 
 			log(
-				`Kiválasztott él: (${p.x.toFixed(2)}, ${p.y.toFixed(2)}) → (${q.x.toFixed(2)}, ${q.y.toFixed(2)})`
+				`Selected edge: (${p.x.toFixed(2)}, ${p.y.toFixed(2)}) → (${q.x.toFixed(2)}, ${q.y.toFixed(2)})`
 			);
 			await delay(900 - get(speed) * 8);
 			await pauseIfNeeded();
@@ -215,13 +215,13 @@ function crossProduct(a, b, c){
 </script>
 
 <div class="custom-input">
-	<div>Pontok száma:</div>
+	<div>Number of nodes:</div>
 	<input
 		class="custom-input"
 		type="number"
 		disabled={$algorithmStatus !== 'idle'}
 		bind:value={elementValue}
-		placeholder="Pontok száma"
+		placeholder="Number of nodes"
 		min="3"
 		max="20"
 	/>

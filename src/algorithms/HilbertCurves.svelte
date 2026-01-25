@@ -62,14 +62,14 @@
 
 	// ==== Algoritmus futás ====
 	async function startAlgorithm() {
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		const count = Math.pow(4, order);
 		totalSteps.set(count);
 		await hilbertCurves(count);
 		activeLine.set({ start: -1, end: -1 });
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		await restartAlgorithm();
 	}
@@ -212,7 +212,7 @@ function rotate(rx, ry, x, y, s) {
 
 <!-- Input mező az order-hez -->
 <div class="custom-input">
-	<label for="order">Görbe rendje:</label>
+	<label for="order">Curve's order:</label>
 	<input
 		id="order"
 		type="number"

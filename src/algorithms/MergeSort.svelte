@@ -66,7 +66,7 @@
 		countArray = [...data];
 		totalSteps.set(countMergeSortSteps(countArray));
 		resetParameters();
-		consoleLog.update((logs) => [...logs, 'Adatok újrakeverve, algoritmus visszaállítva.']);
+		consoleLog.update((logs) => [...logs, 'Array shuffled.']);
 	}
 
 	function countMergeSortSteps(array) {
@@ -153,12 +153,12 @@
 	async function startAlgorithm(event) {
 		consoleLog.set([]);
 		currentStep.set(0);
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		await mergeSort(data);
 		activeLine.set({ start: -1, end: -1 });
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		await restartAlgorithm();
 	}
@@ -196,7 +196,7 @@
 		activeIndices = Array.from({ length: merged.length }, (_, idx) => startIndex + idx);
 
 		while (l < left.length && r < right.length) {
-			log(`Összehasonlítás: ${left[l]} <= ${right[r]}`);
+			log(`Comparing: ${left[l]} <= ${right[r]}`);
 
 			swapIndices = [startIndex + i];
 
@@ -217,7 +217,7 @@
 		}
 
 		while (l < left.length) {
-			log(`Másolás balról: ${left[l]}`);
+			log(`Copying from the left: ${left[l]}`);
 			swapIndices = [startIndex + i];
 
 			activeLine.set({ start: 36, end: 41 });
@@ -230,7 +230,7 @@
 		}
 
 		while (r < right.length) {
-			log(`Másolás jobbról: ${right[r]}`);
+			log(`Copying from the right: ${right[r]}`);
 			swapIndices = [startIndex + i];
 
 			activeLine.set({ start: 43, end: 48 });
@@ -301,7 +301,7 @@ function merge(left, right, merged, startIndex) {
 
 <!-- ==== Komponens markup ==== -->
 <div class="custom-buttons button-group">
-	<button disabled={$algorithmStatus !== 'idle'} on:click={reshuffleData}>Keverés</button>
+	<button disabled={$algorithmStatus !== 'idle'} on:click={reshuffleData}>Shuffle</button>
 </div>
 
 <div class="algorithm-container">

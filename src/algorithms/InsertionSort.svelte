@@ -58,7 +58,7 @@
 		countArray = [...data];
 		totalSteps.set(countInsersionSortSteps(countArray));
 		resetParameters();
-		consoleLog.update((logs) => [...logs, 'Adatok újrakeverve, algoritmus visszaállítva.']);
+		consoleLog.update((logs) => [...logs, 'Array shuffled.']);
 	}
 
 	function resetParameters() {
@@ -110,13 +110,13 @@
 	async function startAlgorithm(event) {
 		consoleLog.set([]);
 		currentStep.set(0);
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		await insersionSort(data);
 		activeLine.set({ start: -1, end: -1 });
 
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		await restartAlgorithm();
 	}
@@ -130,7 +130,7 @@
             activeIndex = index;
             insertedIndex = null;
 
-            log(`Elem kivétele: ${temp}`)
+            log(`Taking out: ${temp}`)
 			activeLine.set({ start: 5, end: 6 });
             await delay(900 - get(speed) * 8);
 			await pauseIfNeeded();
@@ -143,7 +143,7 @@
 
                 swapIndices = [j + 1, j];
 
-                log(`Mozgatás: ${array[j]} < - > ${temp}`);
+                log(`Moving: ${array[j]} < - > ${temp}`);
 				activeLine.set({ start: 9, end: 10 });
 				await delay(900 - get(speed) * 8);
 				await pauseIfNeeded();
@@ -156,7 +156,7 @@
             swapIndices = null;
             insertedIndex = j + 1;
 
-            log(`Elem visszaillesztése: ${temp}`)
+            log(`Inserting: ${temp}`)
 			activeLine.set({ start: 13, end: 13 });
             await delay(900 - get(speed) * 8);
 			await pauseIfNeeded();
@@ -189,7 +189,7 @@
 
 <!-- ==== Komponens markup ==== -->
 <div class="custom-buttons button-group">
-	<button disabled={$algorithmStatus !== 'idle'} on:click={reshuffleData}>Keverés</button>
+	<button disabled={$algorithmStatus !== 'idle'} on:click={reshuffleData}>Shuffle</button>
 </div>
 
 <div class="algorithm-container">

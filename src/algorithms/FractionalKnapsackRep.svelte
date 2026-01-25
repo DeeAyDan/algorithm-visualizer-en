@@ -105,11 +105,11 @@
 			const ratio = newItemValue / newItemWeight;
 
 			if (newItemWeight > 24) {
-				consoleLog.update((logs) => [...logs, `A súly nem lehet nagyobb, mint 24!`]);
+				consoleLog.update((logs) => [...logs, `Weight cannot be greater than 24!`]);
 				return;
 			}
 			if (items.length > 4) {
-				consoleLog.update((logs) => [...logs, `Túl sok tárgy van! Maximum 4 lehet!`]);
+				consoleLog.update((logs) => [...logs, `There are too many items. Max 4!`]);
 				showInsertForm = false;
 				return;
 			}
@@ -156,12 +156,12 @@
 	async function startAlgorithm(event) {
 		consoleLog.set([]);
 		currentStep.set(0);
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		await knapSackRep();
 		activeLine.set({ start: -1, end: -1 });
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		await restartAlgorithm();
 	}
@@ -208,7 +208,7 @@
 
 				consoleLog.update((logs) => [
 					...logs,
-					`${bestItem.name} hozzáadva (${(fraction * 100).toFixed(1)}%)`
+					`Added ${bestItem.name}: (${(fraction * 100).toFixed(1)}%)`
 				]);
 				activeLine.set({ start: 17, end: 18 });
 				await delay(900 - get(speed) * 8);
@@ -219,7 +219,7 @@
 			sackValue += item.value * fraction;
 			consoleLog.update((logs) => [
 				...logs,
-				`${item.name} hozzáadva (${(fraction * 100).toFixed(1)}%)`
+				`Added ${item.name}: (${(fraction * 100).toFixed(1)}%)`
 			]);
 
 			if (sackFilled >= sackSize) break;
@@ -255,31 +255,31 @@
 
 <div class="custom-input">
 	<div>
-		<label for="order">Méret:</label>
+		<label for="order">Size:</label>
 		<input id="order" type="number" disabled={$algorithmStatus !== 'idle'} bind:value={sackSize} />
 	</div>
 	<div class="custom-buttons">
 		<div class="button-group">
-			<button disabled={$algorithmStatus !== 'idle'} on:click={openInsertForm}>Beszúrás</button>
+			<button disabled={$algorithmStatus !== 'idle'} on:click={openInsertForm}>Insert</button>
 			{#if showInsertForm}
 				<div class="dropdown insert-dropdown">
-					<input placeholder="Tárgy neve" maxlength="12" bind:value={newItemName} />
-					<div>Tárgy értéke</div>
+					<input placeholder="Item's name" maxlength="12" bind:value={newItemName} />
+					<div>Item's value</div>
 					<input type="number" placeholder="Érték" max="1000" bind:value={newItemValue} />
-					<div>Tárgy súlya</div>
+					<div>Item's weight</div>
 					<input type="number" placeholder="Súly" max="24" bind:value={newItemWeight} />
-					<button on:click={insertNewItem}>Hozzáadás</button>
+					<button on:click={insertNewItem}>Add</button>
 				</div>
 			{/if}
 		</div>
 		<div class="button-group">
-			<button disabled={$algorithmStatus !== 'idle'} on:click={openDeleteList}>Törlés</button>
+			<button disabled={$algorithmStatus !== 'idle'} on:click={openDeleteList}>Delete</button>
 			{#if showDeleteList}
 				<div class="dropdown">
 					{#each items as item, index}
 						<div class="delete-item">
 							<span>{item.name}</span>
-							<button on:click={() => deleteItem(index)}>Törlés</button>
+							<button on:click={() => deleteItem(index)}>Delete</button>
 						</div>
 					{/each}
 				</div>
@@ -293,7 +293,7 @@
 	<Controls {currentStep} {totalSteps} on:start={startAlgorithm} />
 	<div class="sack-visual">
 		<div class="sack-container">
-			<div class="sack-text">Táska mérete</div>
+			<div class="sack-text">Sack's size</div>
 			<div class="sack">
 				{#each sack as cell, i}
 					<div
@@ -305,13 +305,13 @@
 				{/each}
 			</div>
 
-			<div class="sack-text">Táska értéke</div>
+			<div class="sack-text">Sack's value</div>
 			<div class="sack-text sack-value-text">
 				{sackValue.toFixed(2)}
 			</div>
 		</div>
 		<div class="items-container">
-			<div>Tárgyak</div>
+			<div>Items</div>
 			<div class="item-cards">
 				{#each items as item}
 					<div
@@ -319,14 +319,14 @@
 						style=" border: {item === selectedItem ? '3px solid #ffd700' : '3px solid #484848;'};"
 					>
 						<div class="item-name">{item.name}</div>
-						<div class="item-value">Érték: {item.value}</div>
-						<div class="item-weight-text">Súly: {item.weight}</div>
+						<div class="item-value">Value: {item.value}</div>
+						<div class="item-weight-text">Weight: {item.weight}</div>
 						<div class="item-weight">
 							{#each Array(item.weight) as _, j}
 								<div class="item-space" style="background-color: {item.color};"></div>
 							{/each}
 						</div>
-						<div class="item-ratio">Arány: {item.ratio.toFixed(2)}</div>
+						<div class="item-ratio">Ratio: {item.ratio.toFixed(2)}</div>
 					</div>
 				{/each}
 			</div>

@@ -120,31 +120,31 @@
 		currentStep.set(0);
 
 		if (text.length === 0) {
-			consoleLog.update((logs) => [...logs, `Szöveg üres.`]);
+			consoleLog.update((logs) => [...logs, `Empty string.`]);
 			algorithmStatus.set('idle');
 			return;
 		} else if (pattern.length === 0) {
-			consoleLog.update((logs) => [...logs, `Minta üres.`]);
+			consoleLog.update((logs) => [...logs, `Empty pattern.`]);
 			algorithmStatus.set('idle');
 			return;
 		} else if (text.length > 15) {
-			consoleLog.update((logs) => [...logs, 'Túl hosszú szöveg!']);
+			consoleLog.update((logs) => [...logs, 'String too long!']);
 			algorithmStatus.set('idle');
 			return;
 		} else if (pattern.length > 5) {
-			consoleLog.update((logs) => [...logs, 'Túl hosszú minta!']);
+			consoleLog.update((logs) => [...logs, 'Pattern too long!']);
 			algorithmStatus.set('idle');
 			return;
 		}
 
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		totalSteps.set(KMPCounter(text, pattern));
 		await KMP(text, pattern);
 		textIndex = null;
 		activeLine.set({start: -1, end: -1});
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		await restartAlgorithm();
 	}
@@ -159,7 +159,7 @@
 		while (i < text.length) {
 			patternPosition = i - j;
 
-			log(`Vizsgálat: '${text[i]}' és '${pattern[j]}'`);
+			log(`Checking: '${text[i]}' and '${pattern[j]}'`);
 			textIndex = i;
 
 			activeLine.set({start: 8, end: 8});
@@ -167,7 +167,7 @@
 			await pauseIfNeeded();
 
 			if (pattern[j] == text[i]) {
-				log(`Egyezés.`);
+				log(`Match.`);
 				activeLine.set({start: 9, end: 12});
 				await delay(900 - get(speed) * 8);
 				await pauseIfNeeded();
@@ -177,7 +177,7 @@
 			}
 
 			if (j == pattern.length) {
-				log(`Minta találat ${i - j}. indextől`);
+				log(`Pattern found starting at ${i - j}.`);
 				for (let k = 0; k < j; k++) matchPositions.add(i - j + k);
 				matchPositions = new Set<number>([...matchPositions]);
 				activeLine.set({start: 14, end: 16});
@@ -186,7 +186,7 @@
 				j = lps[j - 1];
 				patternPosition = i - j;
 			} else if (i < text.length && pattern[j] != text[i]) {
-				log(`Eltérés. A minta visszaállítása.`);
+				log(`Deviation. Reseting pattern.`);
 				activeLine.set({start: 18, end: 23});
 				await delay(900 - get(speed) * 8);
 				await pauseIfNeeded();
@@ -277,11 +277,11 @@ function computeLPS(pattern, lps) {
 
 <div class="custom-input">
 	<div>
-		<span>Szöveg:</span>
+		<span>String:</span>
 		<input class="text-input" bind:value={text} maxlength="15" disabled={$algorithmStatus !== 'idle'} />
 	</div>
 	<div>
-		<span>Mintázat:</span>
+		<span>Pattern:</span>
 		<input class="pattern-input" bind:value={pattern} maxlength="5" disabled={$algorithmStatus !== 'idle'} />
 	</div>
 </div>

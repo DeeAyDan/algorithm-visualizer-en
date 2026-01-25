@@ -90,7 +90,7 @@
 		currentStep.set(0);
 		activeNodes = [];
 		swapNodes = [];
-		consoleLog.update((logs) => [...logs, 'Adatok újrakeverve, algoritmus visszaállítva.']);
+		consoleLog.update((logs) => [...logs, 'Array shuffled.']);
 		activeLine.set({ start: -1, end: -1 });
 	}
 
@@ -164,12 +164,12 @@
 		consoleLog.set([]);
 		currentStep.set(0);
 		algorithmStatus.set('running');
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		await heapSort();
 		activeLine.set({ start: -1, end: -1 });
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		await restartAlgorithm();
 	}
@@ -184,7 +184,7 @@
 		}
 
 		for (let i = n - 1; i > 0; i--) {
-			log(`Gyökér és utolsó csere: ${nodes[0]} ⇄ ${nodes[i]}`);
+			log(`Switching root and child: ${nodes[0]} ⇄ ${nodes[i]}`);
 			activeLine.set({ start: 8, end: 11 });
 			await delay(900 - get(speed) * 8);
 			await pauseIfNeeded();
@@ -223,7 +223,7 @@
 		const r = 2 * i + 2;
 
 		if (l < n) {
-			log(`Összehasonlítás: ${nodes[l]} (bal) és ${nodes[largest]} (jelenlegi legnagyobb)`);
+			log(`Comparing: ${nodes[l]} (left) and ${nodes[largest]} (current largest)`);
 			activeNodes = [l, largest];
 			swapNodes = [];
 
@@ -236,7 +236,7 @@
 		}
 
 		if (r < n) {
-			log(`Összehasonlítás: ${nodes[r]} (jobb) és ${nodes[largest]} (jelenlegi legnagyobb)`);
+			log(`Comparing: ${nodes[r]} (right) and ${nodes[largest]} (current largest)`);
 			activeNodes = [r, largest];
 			swapNodes = [];
 
@@ -296,7 +296,7 @@ function heapify(n, i) {
 </script>
 
 <div class="custom-buttons button-group">
-	<button disabled={$algorithmStatus !== 'idle'} on:click={reshuffleData}>Keverés</button>
+	<button disabled={$algorithmStatus !== 'idle'} on:click={reshuffleData}>Shuffle</button>
 </div>
 
 <!-- ==== Vizualizáció ==== -->

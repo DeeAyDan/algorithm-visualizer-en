@@ -79,17 +79,17 @@
 				await pauseIfNeeded();
 
 				if (fromTop > fromLeft) {
-					chosenFrom = 'fentről';
+					chosenFrom = 'top';
 					activeLine.set({ start: 10, end: 11 });
 					await delay(900 - get(speed) * 8);
 					await pauseIfNeeded();
 				} else if (fromLeft > fromTop) {
-					chosenFrom = 'balról';
+					chosenFrom = 'left';
 					activeLine.set({ start: 12, end: 13 });
 					await delay(900 - get(speed) * 8);
 					await pauseIfNeeded();
 				} else {
-					chosenFrom = i === 0 && j === 0 ? 'kezdőérték' : 'egyforma érték (fentről/balról)';
+					chosenFrom = i === 0 && j === 0 ? 'Starting number' : 'Same value (top/left)';
 
 					activeLine.set({ start: 14, end: 16 });
 					await delay(900 - get(speed) * 8);
@@ -133,12 +133,12 @@
 	async function startAlgorithm(event) {
 		consoleLog.set([]);
 		currentStep.set(0);
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		await maxSumPath();
 		activeLine.set({ start: -1, end: -1 });
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		reconstructPath();
 		await restartAlgorithm();
@@ -176,7 +176,7 @@
 	<div class="matrix-container">
 		<!-- Bemeneti mátrix -->
 		<div class="matrix">
-			<div class="matrix-label">Eredeti mátrix</div>
+			<div class="matrix-label">Starting matrix</div>
 			{#each matrix as row, i}
 				<div class="row">
 					{#each row as cell, j}
@@ -194,7 +194,7 @@
 
 		<!-- Megoldás mátrix -->
 		<div class="matrix">
-			<div class="matrix-label">Megoldás mátrix</div>
+			<div class="matrix-label">Result matrix</div>
 			{#each solutionMatrix as row, i}
 				<div class="row">
 					{#each row as cell, j}

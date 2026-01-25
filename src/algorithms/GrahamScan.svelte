@@ -160,12 +160,12 @@
 		}
 
 		currentStep.set(0);
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		await grahamScan(points);
 		activeLine.set({start: -1, end: -1});
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		await restartAlgorithm();
 	}
@@ -177,7 +177,7 @@
 
 		const lowest = points.reduce((a, b) => (a.y > b.y || (a.y === b.y && a.x < b.x) ? a : b));
 		activeLine.set({start: 5, end: 5});
-		log(`Legalsó pont: index: ${points.indexOf(lowest)}`);
+		log(`Lowest point index: ${points.indexOf(lowest)}`);
 		await delay(900 - get(speed) * 8);
 		await pauseIfNeeded();
 
@@ -192,7 +192,7 @@
 			});
 			activeLine.set({start: 7, end: 13});
 			log(
-			`Rendezett pontok indexei: ${[lowest, ...sorted].map((p) => points.indexOf(p)).join(', ')}`
+			`Indices of the sorted points: ${[lowest, ...sorted].map((p) => points.indexOf(p)).join(', ')}`
 		);
 		await delay(900 - get(speed) * 8);
 		await pauseIfNeeded();
@@ -203,7 +203,7 @@
 
 		activeLine.set({start: 15, end: 15});
 		log(
-			`Kezdő él: (${lowest.x.toFixed(2)}, ${lowest.y.toFixed(2)}) → (${sorted[0].x.toFixed(2)}, ${sorted[0].y.toFixed(2)})`
+			`Starting edge: (${lowest.x.toFixed(2)}, ${lowest.y.toFixed(2)}) → (${sorted[0].x.toFixed(2)}, ${sorted[0].y.toFixed(2)})`
 		);
 		await delay(900 - get(speed) * 8);
 		await pauseIfNeeded();
@@ -214,7 +214,7 @@
 			let nextToTop = stack[stack.length - 2];
 
 			activeLine.set({start: 18, end: 20});
-			log(`Vizsgált pont indexe: ${points.indexOf(current)}`);
+			log(`Index of the current edge: ${points.indexOf(current)}`);
 			highlightedEdge = [top, current];
 			highlightedEdge = [...highlightedEdge];
 			await delay(900 - get(speed) * 8);
@@ -222,7 +222,7 @@
 
 			while (stack.length >= 2 && crossProduct(nextToTop, top, current) <= 0) {
 				activeLine.set({start: 22, end: 26});
-				log(`Nem balra fordul → töröljük: (${top.x.toFixed(2)}, ${top.y.toFixed(2)})`);
+				log(`Doesn't turn left → deleting: (${top.x.toFixed(2)}, ${top.y.toFixed(2)})`);
 				stack.pop();
 				highlightedEdge = null;
 
@@ -240,7 +240,7 @@
 
 			activeLine.set({start: 27, end: 27});
 			log(
-				`Hozzáadva a burokhoz: (${top.x.toFixed(2)}, ${top.y.toFixed(2)}) → (${current.x.toFixed(2)}, ${current.y.toFixed(2)})`
+				`Added to the hull: (${top.x.toFixed(2)}, ${top.y.toFixed(2)}) → (${current.x.toFixed(2)}, ${current.y.toFixed(2)})`
 			);
 
 			await delay(900 - get(speed) * 8);
@@ -254,7 +254,7 @@
 		stackEdges = [...stackEdges];
 		activeLine.set({start: 30, end: 31});
 		log(
-			`Záró él: (${last.x.toFixed(2)}, ${last.y.toFixed(2)}) → (${first.x.toFixed(2)}, ${first.y.toFixed(2)})`
+			`Closing edge: (${last.x.toFixed(2)}, ${last.y.toFixed(2)}) → (${first.x.toFixed(2)}, ${first.y.toFixed(2)})`
 		);
 
 		await delay(900 - get(speed) * 8);
@@ -326,13 +326,13 @@ function crossProduct(a, b, c) {
 </script>
 
 <div class="custom-input">
-	<div>Pontok száma:</div>
+	<div>Number of nodes:</div>
 	<input
 		class="custom-input"
 		type="number"
 		disabled={$algorithmStatus !== 'idle'}
 		bind:value={elementValue}
-		placeholder="Pontok száma"
+		placeholder="Number of nodes"
 		max="20"
 		min="3"
 	/>

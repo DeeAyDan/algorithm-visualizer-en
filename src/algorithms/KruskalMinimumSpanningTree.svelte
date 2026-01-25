@@ -83,12 +83,12 @@
 	}
 
 	async function startAlgorithm() {
-		consoleLog.update((logs) => [...logs, `${displayName} indítása...`]);
+		consoleLog.update((logs) => [...logs, `Starting ${displayName}...`]);
 
 		await kruskal();
 		activeLine.set({start: -1, end: -1});
 
-		consoleLog.update((logs) => [...logs, 'A futás befejeződött!']);
+		consoleLog.update((logs) => [...logs, 'The run has finished!']);
 		algorithmStatus.set('finished');
 		await restartAlgorithm();
 	}
@@ -106,20 +106,20 @@
 			let x = find(parent, from);
 			let y = find(parent, to);
 
-			log(`Él vizsgálata: (${from}, ${to}) súly: ${weight}`);
+			log(`Checking edge: (${from}, ${to}) weight: ${weight}`);
 			activeLine.set({start: 10, end: 11});
 			highlightedEdge = { from, to };
 			await delay(900 - get(speed) * 8);
 			await pauseIfNeeded();
 
 			if (x !== y) {
-				log(`Hozzáadás az feszítőfához: (${from}, ${to})`);
+				log(`Adding to the spanning tree: (${from}, ${to})`);
 				activeLine.set({start:13, end: 16});
 				result.push(edges[i]);
 				mstEdges = [...result];
 				union(parent, rank, x, y);
 			} else {
-				log(`Ciklust alkotna, kihagyva: (${from}, ${to})`);
+				log(`Would be looping. Skipping edge: (${from}, ${to})`);
 			}
 
 			highlightedEdge = null;
