@@ -24,8 +24,8 @@
 	let selectedItem = null;
 	let removedAmountFromSelectedItem = 0;
 	let items = [
-		{ name: 'Tárgy 1', value: 10, weight: 5, color: getRandomColor(), ratio: 2 },
-		{ name: 'Tárgy 2', value: 20, weight: 20, color: getRandomColor(), ratio: 1 }
+		{ name: 'Item 1', value: 10, weight: 5, color: getRandomColor(), ratio: 2 },
+		{ name: 'Item 2', value: 20, weight: 20, color: getRandomColor(), ratio: 1 }
 	];
 
 	// Create reactive sack array
